@@ -14,6 +14,7 @@ module.exports = function (grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
+  grunt.loadNpmTasks('grunt-exec');
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -56,7 +57,13 @@ module.exports = function (grunt) {
         ]
       }
     },
-
+    exec: {
+      checkdir: {
+        command: 'checkdir.bat',
+        exitCodes: [0,1,2,3]
+      },
+      sourcemap:'scss --sourcemap app/styles/youtube.scss .tmp/css/youtube'
+    },
     // The actual grunt server settings
     connect: {
       options: {
@@ -153,6 +160,7 @@ module.exports = function (grunt) {
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
       options: {
+        sourcemap: true,
         sassDir: '<%= yeoman.app %>/styles',
         cssDir: '.tmp/styles',
         generatedImagesDir: '.tmp/images/generated',
@@ -164,8 +172,8 @@ module.exports = function (grunt) {
         httpGeneratedImagesPath: '/images/generated',
         httpFontsPath: '/styles/fonts',
         relativeAssets: false,
-        assetCacheBuster: false,
-        raw: 'Sass::Script::Number.precision = 10\n'
+        assetCacheBuster: false
+//        raw: 'Sass::Script::Number.precision = 10\n'
       },
       dist: {
         options: {
@@ -174,7 +182,7 @@ module.exports = function (grunt) {
       },
       server: {
         options: {
-          debugInfo: true
+          debugInfo: false
         }
       }
     },
@@ -197,7 +205,7 @@ module.exports = function (grunt) {
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
     useminPrepare: {
-      html: '<%= yeoman.app %>/index.html',
+      html: '<%= yeoman.app %>/*.html',
       options: {
         dest: '<%= yeoman.dist %>'
       }
@@ -305,7 +313,9 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
-        'compass:server'
+        'compass:server',
+//        'exec:checkdir',
+//        'exec:sourcemap'
       ],
       test: [
         'compass'

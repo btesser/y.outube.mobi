@@ -1,0 +1,170 @@
+body {
+  background: #f1f1f1;
+}
+
+header {
+  width: 100%;
+  background-color: #1b1b1b;
+  border-bottom: 1px solid #181818;
+  height: auto;
+  text-align: center;
+  background: -webkit-gradient(linear, left top, left bottom, from(#333), to(#1b1b1b));
+  background: -moz-linear-gradient(top, #333, #1b1b1b);
+  background: -ms-linear-gradient(top, #333, #1b1b1b);
+  background: -webkit-linear-gradient(top, #333, #1b1b1b);
+  background: -o-linear-gradient(top, #333, #1b1b1b);
+  background: linear-gradient(to bottom, #333, #1b1b1b);
+  filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#333, EndColorStr=#1b1b1b);
+  text-align: center;
+}
+
+.sprite {
+  background: no-repeat url(//s.ytimg.com/yts/imgbin/mobile-swatch-set-vhigh-vflk-8UvI.png);
+  background-size: 176px 184px;
+  -moz-background-size: 176px 184px;
+  -webkit-background-size: 176px 184px;
+  &.menu {
+    background-position: -28px -156px;
+    width: 28px;
+    height: 28px;
+  }
+  &.logo {
+    background-position: 0px -57px;
+    width: 68px;
+    height: 28px;
+  }
+
+}
+
+.menu {
+  .wrapper {
+    display: table-cell;
+    height: auto;
+    width: 44px;
+    vertical-align: middle;
+    text-align: center;
+  }
+  button {
+    background: transparent;
+    border: none;
+    padding: 8px 0;
+    span {
+      display: inline-block;
+    }
+  }
+}
+
+.search {
+  .wrapper {
+    display: table-cell;
+    height: auto;
+    width: 44px;
+    vertical-align: middle;
+    text-align: center;
+    button {
+      background: transparent;
+      border: none;
+      padding: 8px 0;
+      > span {
+        background-position: -89px -85px;
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+      }
+    }
+  }
+  .cancel {
+    display: none;
+    &.active {
+      display: table-cell;
+    }
+    button {
+      display: inline-block;
+      border: 1px solid;
+      padding: 0 .9em;
+      min-height: 32px;
+      min-width: 22px;
+      vertical-align: middle;
+      line-height: 2.5em;
+      text-align: center;
+      font-size: 12px;
+      font-weight: bold;
+      border-radius: 2px;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      border-color: #151515 #151515 #000;
+      text-shadow: 0 -1px 0 rgba(0, 0, 0, .5);
+      color: #fff;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
+      background: #272727;
+      background: -webkit-gradient(linear, left top, left bottom, from(#383838), to(#151515));
+      background: -moz-linear-gradient(top, #383838, #151515);
+      background: -ms-linear-gradient(top, #383838, #151515);
+      background: -webkit-linear-gradient(top, #383838, #151515);
+      background: -o-linear-gradient(top, #383838, #151515);
+      background: linear-gradient(to bottom, #383838, #151515);
+      filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#383838, EndColorStr=#151515);
+    }
+  }
+}
+
+.logo {
+
+  margin: 0 100px;
+  padding: 8px 0;
+  .sprite {
+    display: inline-block;
+    background-position: 0px -57px;
+    width: 68px;
+    height: 28px;
+  }
+}
+
+button {
+  align-items: flex-start;
+  text-align: center;
+  cursor: default;
+  color: buttontext;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  font: -webkit-small-control;
+}
+
+.float {
+  &.left {
+    float: left;
+  }
+  &.right {
+    float: right;
+  }
+}
+
+content {
+  width: 100%;
+  height: auto;
+  .inner {
+    iframe {
+      width: 100%;
+    }
+  }
+  .buttons {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.video-bg {
+  height: auto;
+  width: 100%;
+}
+
+._mcg, ._mcd, ._mtd, ._mhj, ._mtl, ._myy, ._mwy, ._mmu, ._mwj, ._mok, ._my, ._mz, ._mlb, ._mbd, ._mjh, ._mrk, ._mob, ._mjl, ._mll, ._mgf, ._mv, ._mw, ._mko, ._mpf, ._msk, ._mek, ._mnt, ._mwq, ._mlf, ._mju, ._mvl, ._mdd, ._mjg, ._mfw, ._mew, ._mhw, ._myw, ._mi, ._mj, ._mmb, ._mkv {
+  background: no-repeat url(//s.ytimg.com/yts/imgbin/mobile-swatch-set-vhigh-vflk-8UvI.png);
+  background-size: 176px 184px;
+  -moz-background-size: 176px 184px;
+  -webkit-background-size: 176px 184px;
+}

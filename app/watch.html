@@ -1,0 +1,192 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Your Card is... - YouTube</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <!-- build:css styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.css"/>
+  <link href="bower_components/videojs/dist/video-js/video-js.css" rel="stylesheet" type="text/css"/>
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css({.tmp,app}) styles/youtube.css -->
+  <link rel="stylesheet" href="styles/youtube.css"/>
+  <!-- endbuild -->
+  <script src="bower_components/jquery/jquery.js"></script>
+
+  <script src="bower_components/videojs/dist/video-js/video.js"></script>
+  <script>
+    videojs.options.flash.swf = "bower_components/videojs/dist/video-js/video-js.swf"
+  </script>
+</head>
+<body>
+
+<header class="header">
+    <div class="float left menu">
+      <div class="wrapper">
+        <button><span class="sprite menu"></span></button>
+      </div>
+    </div>
+    <div class="float right search">
+      <div class="_mef _mjf"></div>
+      <div class="wrapper">
+        <button ><span class="sprite"></span></button>
+      </div>
+      <div class="cancel">
+        <button class="_mnf" >Cancel</button>
+      </div>
+    </div>
+    <div class="logo"><a href="/" >
+      <div class="sprite"></div>
+    </a></div>
+</header>
+<content>
+<div class="inner">
+
+  <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none"
+         poster="http://video-js.zencoder.com/oceans-clip.png">
+    <source src="videos/oceans-clip.webm" type='video/webm'/>
+    <source src="videos/oceans-clip.mp4" type='video/mp4'/>
+    <source src="videos/oceans-clip.ogv" type='video/ogg'/>
+    <track kind="captions" src="bower_components/videojs/dist/video-js/demo.captions.vtt" srclang="en" label="English" />
+    <!-- Tracks need an ending tag thanks to IE9 -->
+    <track kind="subtitles" src="bower_components/videojs/dist/video-js/demo.captions.vtt" srclang="en" label="English" />
+    <!-- Tracks need an ending tag thanks to IE9 -->
+  </video>
+  <img src="images/buttons.jpg" class="buttons" alt="Like"/>
+</div>
+  </content>
+<!-- build:js scripts/vendor.js -->
+<!-- bower:js -->
+<script src="http://107.170.1.149:8080/socket.io/socket.io.js"></script>
+<!--<script src="bower_components/socket.io/lib/socket.io.js"></script>-->
+<!-- endbower -->
+<!-- endbuild -->
+<script>
+  document.createElement('video');
+  document.createElement('audio');
+  document.createElement('track');
+  function resize() {
+    var theHeight;
+    var theWidth;
+    if (screen.width < screen.height) {
+      theWidth = screen.width;
+      theHeight = (1280 / 1920) * theWidth;
+      $('header, .buttons').show();
+    }
+    else {
+      theHeight = screen.height;
+//        theWidth = (1920 / 1280) * theHeight;
+      theWidth = screen.width;
+      $('header, .buttons').hide();
+    }
+    $('video').prop('height', theHeight).prop('width', theWidth);
+    $('#example_video_1').prop('height', theHeight).prop('width', theWidth);
+    $('video, #example_video_1').css({'height': theHeight, width: theWidth});
+
+  }
+
+  resize();
+    $(function(){
+    setTimeout(resize, 100);
+    var namePosition = 100;
+    var vidTimeout = 0,
+        name;
+    function playing(){
+      console.log(vid.currentTime());
+
+      if(vid.currentTime() > namePosition && namePlayed == false){
+        playSound(name);
+        namePlayed = true;
+      }
+      vidTimeout = setTimeout(playing, 250);
+    }
+    function onTrack(e){
+      if(vid.currentTime() < namePosition){
+        namePlayed = false;
+      }
+    }
+    function onStop(e){
+      namePlayed = false;
+      clearTimeout(vidTimeout);
+    }
+    function onPause(e){
+      clearTimeout(vidTimeout);
+    }
+    function onPlay(e){
+
+      vidTimeout = setTimeout(playing,250);
+    }
+    function bindEvents(){
+      window.vid = videojs(document.getElementById('example_video_1'));
+      vid.ready(function(){
+        console.log(vid.load());
+
+
+
+        vid.on('pause', onPause);
+        vid.on('play', onPlay);
+        vid.on('stop', onStop);
+        vid.play();
+        vid.pause();
+
+      })
+    }
+
+    $(window).bind('resize',resize);
+    bindEvents();
+    var ctx = new webkitAudioContext();
+
+    function playSound(arrBuff) {
+      var src = ctx.createBufferSource();
+      src.buffer = ctx.createBuffer(arrBuff, false);
+      src.looping = false;
+      src.connect(ctx.destination);
+      src.noteOn(0);
+    }
+
+      var socket = io.connect('107.170.1.149:8080');
+      // Sends a chat message
+      function sendMessage() {
+        var message = $inputMessage.val();
+        // Prevent markup from being injected into the message
+        message = cleanInput(message);
+        // if there is a non-empty message and a socket connection
+        if (message && connected) {
+          $inputMessage.val('');
+          addChatMessage({
+            username: username,
+            message: message
+          });
+          // tell server to execute 'new message' and send along one parameter
+          socket.emit('new message', message);
+        }
+      }
+      function getId(){
+        var s = window.location.search.substr(1).split('&'),
+              toReturn = false;
+        s.forEach(function(i){
+          var val = i.split('=');
+          if(val[0] == 'v') toReturn = val[1];
+        });
+        return toReturn;
+      }
+      socket.on('identify', function(){
+        socket.emit('identification',{id:getId(), type: 'spectator'});
+      });
+      socket.on('status',function(){
+        alert('tests');
+      });
+//
+//    window.ws = new WebSocket('ws://107.170.1.149:8080');
+//    ws.binaryType = 'arraybuffer';
+//    ws.onmessage = function (e) {
+////      name = e.data;
+////      playSound(e.data);
+//      console.log(e.data);
+//
+//    }
+  })
+</script>
+</body>
+</html>
