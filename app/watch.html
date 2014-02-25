@@ -56,12 +56,7 @@
   <img src="images/buttons.jpg" class="buttons" alt="Like"/>
 </div>
   </content>
-<!-- build:js scripts/vendor.js -->
-<!-- bower:js -->
-<script src="http://107.170.1.149:8080/socket.io/socket.io.js"></script>
-<!--<script src="bower_components/socket.io/lib/socket.io.js"></script>-->
-<!-- endbower -->
-<!-- endbuild -->
+<script src="http://107.170.1.149/socket.io/socket.io.js"></script>
 <script>
   document.createElement('video');
   document.createElement('audio');
@@ -145,7 +140,7 @@
       src.noteOn(0);
     }
 
-      var socket = io.connect('107.170.1.149:8080');
+      var socket = io.connect(window.location.hostname);
       // Sends a chat message
       function sendMessage() {
         var message = $inputMessage.val();

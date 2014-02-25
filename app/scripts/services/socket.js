@@ -4,7 +4,7 @@ angular.module('youtubemobiApp')
   .service('Socket', function Socket() {
     var socket;
     this.init = function init(){
-      var socket = this.socket = io.connect('107.170.1.149:8080');
+      var socket = this.socket = io.connect(window.location.hostname);
       socket.on('identify',function(){
         console.log('ID Request', arguments);
         socket.emit('identification',{

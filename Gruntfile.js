@@ -14,7 +14,7 @@ module.exports = function (grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
-  grunt.loadNpmTasks('grunt-exec');
+//  grunt.loadNpmTasks('grunt-exec');
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -57,13 +57,13 @@ module.exports = function (grunt) {
         ]
       }
     },
-    exec: {
+/*    exec: {
       checkdir: {
         command: 'checkdir.bat',
         exitCodes: [0,1,2,3]
       },
       sourcemap:'scss --sourcemap app/styles/youtube.scss .tmp/css/youtube'
-    },
+    },*/
     // The actual grunt server settings
     connect: {
       options: {
@@ -313,7 +313,7 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
-        'compass:server',
+        'compass:server'
 //        'exec:checkdir',
 //        'exec:sourcemap'
       ],
