@@ -1,5 +1,5 @@
 var mongo = require('mongodb');
-
+var am = require('./authmanager');
 var Server = mongo.Server,
 	Db = mongo.Db,
 	BSON = mongo.BSONPure;
@@ -25,11 +25,15 @@ exports.all = function(req,res){
 	});
 };
 exports.addUser = function(req,res){
-    var wine = req.body;
-    console.log('Adding wine: ' + typeof req.body);
-	res.send(req.body);
-/*    db.collection('wines', function(err, collection) {
-        collection.insert(wine, {safe:true}, function(err, result) {
+    var user = {
+  name: req.body.name,
+  email: req.body.email,
+  youtubeId: req.body.youtubeId,
+  salt: am.getSalt()
+  };
+  user.password = am.getHash(req.body.password, user.salt);
+  db.collection('users', function(err, collection) {
+    collection.insert(user, {safe:true}, function(err, result) {
             if (err) {
                 res.send({'error':'An error has occurred'});
             } else {

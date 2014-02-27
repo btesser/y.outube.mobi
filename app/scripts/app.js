@@ -23,7 +23,7 @@ angular.module('youtubemobiApp', [
         .state('home', {
             url: '/',
             templateUrl: 'views/main.html',
-            controller: 'HomeCtrl'
+            controller: 'MainCtrl'
         })
         .state('login',{
             url: '/login',

@@ -1,5 +1,6 @@
-var bcrypt = require('bcrypt');
+var crypto = require('crypto');
 var Q = require('q');
+/*
 exports.generateHash = function (text, callback){
   var deferred = Q.defer();
   bcrypt.genSalt(10, function (error, salt){
@@ -13,3 +14,15 @@ exports.generateHash = function (text, callback){
   });
   return deferred.promise;
 };
+*/
+var hash = function(passwd, salt) {
+    return crypto.createHmac('sha256', salt).update(passwd).digest('hex');
+};
+exports.getHash = function(password, salt){
+	return hash(password, salt);
+};
+exports.verifyPassword = function(user, password){
+	return user.password === hash(password, user.salt);
+};
+exports.getSalt = Crypto.randomBytes('256', function(err, buf) {
+        if (err) throw err; return buf;});
