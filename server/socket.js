@@ -5,6 +5,7 @@ var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 var users = require('./users');
 var port = process.env.PORT || 80;
+var mongoose = require('mongoose');
 
 server.listen(port, function () {
   console.log('Server listening at port %d', port);
@@ -16,7 +17,7 @@ app.use(express.urlencoded());
 //app.use(express.static(__dirname + '/dist'));
 app.use(express.static(__dirname+ '/../dist'));
 app.get('/users', users.all);
-app.post('/users', users.addUser);
+app.post('/users', users.register);
 // Chatroom
 
 // usernames which are currently connected to the chat

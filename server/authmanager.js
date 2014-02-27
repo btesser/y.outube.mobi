@@ -1,28 +1,29 @@
-var crypto = require('crypto');
+// var crypto = require('crypto');
+var bcrypt = require('bcrypt');
 var Q = require('q');
-/*
-exports.generateHash = function (text, callback){
-  var deferred = Q.defer();
-  bcrypt.genSalt(10, function (error, salt){
-    if (error){
-      console.log('Error getting salt');
-    }
-    return bcrypt.hash(text, salt, function(error, hash){
-      if(error) console.error("error encrypting password");
-      deferred.resolve(hash);
+
+var SALT_WORK_FACTOR = 10;
+module.exports.encryptPassword = function(password){
+  var deferred = Q.defer(); 
+  bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+    if (err) return deferred.reject(err);
+ 
+    // hash the password using our new salt
+    bcrypt.hash(password, salt, function(err, hash) {
+      if (err) return deferred.reject(err);
+ 
+      // override the cleartext password with the hashed one
+      return deferred.resolve(hash);
     });
   });
   return deferred.promise;
 };
-*/
-var hash = function(passwd, salt) {
-    return crypto.createHmac('sha256', salt).update(passwd).digest('hex');
+
+module.exports.verifyPassword = function(passwordHash, passwordAttempt){
+  var deferred = Q.defer();
+  bcrypt.compare(passwordAttempt, passwordHash, function(err, isMatch){
+    if (err) return deferred.reject(err);
+    return deferred.resolve(isMatch);
+  });
+  return deferred.promise;
 };
-exports.getHash = function(password, salt){
-	return hash(password, salt);
-};
-exports.verifyPassword = function(user, password){
-	return user.password === hash(password, user.salt);
-};
-exports.getSalt = Crypto.randomBytes('256', function(err, buf) {
-        if (err) throw err; return buf;});
