@@ -1,0 +1,26 @@
+<div class="row-fluid">
+
+    Thank you for purchasing {{ trickname }}.  To get started, please register using the form below/
+    <form role="form" ng-submit="login()">
+        <div class="form-group">
+            <label for="vid">Video ID #</label>
+            <input type="text" class="form-control" id="vid" placeholder="zxY4xj42" required>
+        </div>
+
+        <div class="form-group">
+            <label for="youtube-username">Youtube Username</label>
+            <input type="text" class="form-control" id="youtube-username" placeholder="Youtube Username" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="user@domain.com" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password" required>
+            <input type="password" class="form-control" id="password-confirm" placeholder="Confirm Password" required>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+        <button class="btn btn-default" ng-click="forgotPassword()">I forgot my password</button>
+    </form>
+</div>

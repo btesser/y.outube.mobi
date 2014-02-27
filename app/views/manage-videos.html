@@ -1,0 +1,18 @@
+<div class="row-fluid">
+    <form role="form" ng-submit="login()">
+        <select ng-model="suit" ng-options="suit.name for suit in suits track by suit.abbreviation"></select>
+        <select ng-model="card" ng-options="card.name + ' of ' + suit.name for card in cards track by card.abbreviation"></select>
+        <div class="form-group row-fluid">
+            <label for="video">Video URL: </label>
+            http://youtube.com/watch?v=<input type="text" class="span6 form-control" id="video" placeholder="url" ng-model="videos[suit.name][card.abbreviation].url" />
+            <label for="name-position">Time where name is said:</label>
+            <input type="number" class="span6 form-control" id="name-position" ng-model="videos[suit.name][card.abbreviation].namePosition" />
+        </div>
+        <div class="row-fluid">
+            <button type="button" class="btn btn-default span6" ng-click="previous()">Previous</button>
+            <button type="button" class="btn btn-default span6" ng-click="next()">Next</button>
+
+        </div>
+    </form>
+</div>
+
