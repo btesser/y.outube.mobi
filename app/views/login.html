@@ -4,11 +4,11 @@
     <form role="form" ng-submit="login()">
         <div class="form-group">
             <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" placeholder="email@domain.com" required>
+            <input type="email" class="form-control" id="email" placeholder="email@domain.com" required ng-model="user.email">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required ng-model="user.password">
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
         <button class="btn btn-default" ng-click="forgotPassword()">I forgot my password</button>

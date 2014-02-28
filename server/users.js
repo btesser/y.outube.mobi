@@ -2,6 +2,7 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var am = require('./authmanager');
 var schemas = require('./schemas');
+var jwt = require('./jwt-session');
 var Server = mongo.Server,
 	Db = mongo.Db,
 	BSON = mongo.BSONPure,
@@ -40,8 +41,18 @@ module.exports.login = function login(req, res){
   console.log('login');
   User.findOne({ email: req.body.email}, function(err, user) {
     if (err) throw err;
+    console.log(user);
     user.verifyPassword(req.body.password).then(function(response){
-      if(response) res.send(user);
+      var returnToUser = {
+        name: user.name,
+        videoId: user.videoId,
+        email: user.email,
+        youtubeId: user.youtubeId
+      };
+      console.log(returnToUser);
+      var token = jwt.sign(returnToUser, 60);
+      returnToUser.token = token;
+      if(response) res.json(returnToUser);
       else res.send(401, {error: "Incorrect Password"});
     }, function(err) {
       res.send(401, "Incorrect Password");

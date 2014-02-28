@@ -1,4 +1,7 @@
 <div class="row-fluid">
+    <div class="span6">
+        <youtube vid="{{ videos[suit.name][card.abbreviation].url }}"></youtube>
+    </div>
     <form role="form" ng-submit="login()">
         <select ng-model="suit" ng-options="suit.name for suit in suits track by suit.abbreviation"></select>
         <select ng-model="card" ng-options="card.name + ' of ' + suit.name for card in cards track by card.abbreviation"></select>
