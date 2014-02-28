@@ -6,11 +6,18 @@ var userSchema = mongoose.Schema({
   email: { type: String, required: true},
   password: {type: String, required: true}
 });
-userSchema.pre('save', function(next) {
+userSchema.pre('save', true, function(next, done) {
+  console.log('pre');
   var user = this;
-
-  if (!user.isModified('password')) return next();
-  this.setPassword(password).then(next);
+  console.log(user);
+  console.log(next);
+  if (!user.isModified('password')){
+    console.log("password not modified");
+    return console.log(next(function(){console.log('next', arguments)}));
+  }
+  console.log('password modified');
+  next(function(){console.log('next')});
+  this.setPassword(user.password).then(done);
 });
 
 userSchema.methods.setPassword = function(password){

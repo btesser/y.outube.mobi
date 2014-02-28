@@ -12,12 +12,18 @@ server.listen(port, function () {
 });
 app.use(express.json());
 app.use(express.urlencoded());
-
+app.all('*', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 // Routing
 //app.use(express.static(__dirname + '/dist'));
 app.use(express.static(__dirname+ '/../dist'));
 app.get('/users', users.all);
 app.post('/users', users.register);
+app.post('/login', users.login);
 // Chatroom
 
 // usernames which are currently connected to the chat

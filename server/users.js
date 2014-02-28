@@ -22,15 +22,22 @@ exports.register = function(req,res){
   var user = new User({
     name: req.body.name,
     email: req.body.email,
-    youtubeId: req.body.youtubeId
+    youtubeId: req.body.youtubeId,
+    videoId: req.body.videoId,
+    password: req.body.password
   });
-  user.setPassword(req.body.password);
+  user.setPassword(req.body.password).then(function(response){
+    console.log(response);
+  });
+
   return user.save(function(err, user){
+    console.log('save', arguments[0].errors.password);
     res.send(user);
   });
 };
 
 module.exports.login = function login(req, res){
+  console.log('login');
   User.findOne({ email: req.body.email}, function(err, user) {
     if (err) throw err;
     user.verifyPassword(req.body.password).then(function(response){
